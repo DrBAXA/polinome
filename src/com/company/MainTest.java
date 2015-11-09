@@ -71,4 +71,12 @@ public class MainTest {
         assertEquals(123, getHalf(123321));
         assertEquals(112, getHalf(112211));
     }
+
+    @Test(timeout = 10000)
+    public void getArnLoadTest(){
+        long l = 0;
+        for (int i = 0; i < 10000000; i++) {
+            l+= getArn(i, 10);
+        }
+    }
 }

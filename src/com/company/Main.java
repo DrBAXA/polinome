@@ -19,12 +19,10 @@ public class Main {
     }
 
     static long getArn(long i, long base){
-        long d = i/base;
-        if(d > 0){
-            return getArn(d, base) + 1;
-        }else {
-            return 1;
-        }
+        if(base == 2)
+            return Long.toBinaryString(i).length();
+        else
+            return Long.toString(i).length();
     }
 
     static long genNextPalindrome(long x){
