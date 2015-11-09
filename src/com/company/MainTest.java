@@ -38,12 +38,12 @@ public class MainTest {
     @Test
     public void genNebPalindromeTest(){
         assertEquals(5, genNextPalindrome(4));
-        assertEquals(22, genNextPalindrome(11));
+        assertEquals(33, genNextPalindrome(11));
         assertEquals(121, genNextPalindrome(111));
         assertEquals(1001, genNextPalindrome(999));
         assertEquals(101, genNextPalindrome(99));
         assertEquals(1, genNextPalindrome(0));
-        assertEquals(890098, genNextPalindrome(889988));
+        assertEquals(900009, genNextPalindrome(889988));
         assertEquals(1000001, genNextPalindrome(999999));
     }
 
@@ -78,5 +78,14 @@ public class MainTest {
         for (int i = 0; i < 10000000; i++) {
             l+= getArn(i, 10);
         }
+    }
+
+    @Test
+    public void powLoadTest(){
+        long l = 0;
+        for (long i = 0; i < 1000000000L; i++) {
+            l+= pow(8);
+        }
+        System.out.println(l);
     }
 }

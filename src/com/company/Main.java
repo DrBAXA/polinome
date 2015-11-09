@@ -2,35 +2,43 @@ package com.company;
 
 public class Main {
 
-    static public boolean isPalindromic(long i, long base){
-        long n = getArn(i, base);
-        for (long j = 1; j <= n / 2; j++) {
+    static public boolean isPalindromic(long i, int base){
+        int n = getArn(i, base);
+        for (int j = 1; j <= n / 2; j++) {
             if(getDigit(i, j ,base) != getDigit(i, n-(j-1), base)) return false;
         }
         return true;
     }
 
-    static long getDigit(long i, long n, long base){
-        long d = getArn(i, base)-n;
-        for (long j = 0; j < d; j++) {
+    static int getDigit(long i, int n, int base){
+        int d = getArn(i, base)-n;
+        for (int j = 0; j < d; j++) {
             i = i/base;
         }
-        return i%base;
+        return (int)(i%base);
     }
 
-    static long getArn(long i, long base){
-        if(base == 2)
-            return Long.toBinaryString(i).length();
-        else
-            return Long.toString(i).length();
+    static int getArn(long i, int base){
+        int n = 1;
+        i /= base;
+        while (i > 0){
+            n++;
+            i /= base;
+        }
+        return n;
     }
 
     static long genNextPalindrome(long x){
         if(x == 9) return 11;
-        long d = getArn(x, 10);
+        int d = getArn(x, 10);
         if(d == 1) return x+1;
         if(d%2 == 0) {
             long lp = getHalf(x)+1;
+            int fd = getDigit(lp, 1, 10);
+            if(fd%2 == 0){
+                lp = (fd+1)*pow(getArn(lp, 10)-1);
+            }
+
             if(getArn(lp,10) != getArn(getHalf(x),10)){
                 return genReflectedAndCenter(lp / 10, 0);
             }else {
@@ -38,9 +46,14 @@ public class Main {
             }
         }
         if(d%2 == 1) {
-            long cd = getDigit(x, d / 2 + 1, 10);
+            int cd = getDigit(x, d / 2 + 1, 10);
             if(cd == 9){
                 long lp = getHalf(x)+1;
+                int fd = getDigit(lp, 1, 10);
+                if(fd%2 == 0){
+                    lp = (fd+1)*pow(getArn(lp, 10)-1);
+                }
+
                 if(getArn(lp,10) != getArn(getHalf(x),10)){
                     return genReflected(lp);
                 }else {
@@ -52,27 +65,39 @@ public class Main {
         return 0;
     }
 
-    static long getHalf(long i){
-        long n = getArn(i, 10);
-        long res = 0;
-        for (long j = 1; j <= n/2; j++) {
-            res += getDigit(i, j, 10)*Math.pow(10, n/2-j);
+    static int getHalf(long i){
+        int n = getArn(i, 10);
+        int res = 0;
+        for (int j = 1; j <= n/2; j++) {
+            res += getDigit(i, j, 10)*pow(n/2-j);
         }
         return res;
     }
 
     static long genReflected(long i){
-        long res = i*(long)Math.pow(10, getArn(i, 10));
-        for(long j = 1; j <= getArn(i, 10); j++){
-            res += getDigit(i, j, 10)*Math.pow(10, j - 1);
+        long k = 1;
+        for(int j = 0; j < getArn(i, 10); j++){
+            k *= 10;
+        }
+        long res = i*pow(getArn(i, 10));
+        for(int j = 1; j <= getArn(i, 10); j++){
+            res += getDigit(i, j, 10)*pow(j - 1);
         }
         return res;
     }
 
+    static long pow(int n){
+        long x = 1;
+        for (int i = 0; i < n; i++) {
+            x*= 10;
+        }
+        return x;
+    }
+
     static long genReflectedAndCenter(long i, long c){
-        long res = i*(long)Math.pow(10, getArn(i, 10)+1) + c*(long)Math.pow(10, getArn(i, 10));
-        for(long j = 1; j <= getArn(i, 10); j++){
-            res += getDigit(i, j, 10)*Math.pow(10, j - 1);
+        long res = i*pow(getArn(i, 10)+1) + c*pow(getArn(i, 10));
+        for(int j = 1; j <= getArn(i, 10); j++){
+            res += getDigit(i, j, 10)*pow(j - 1);
         }
         return res;
     }
