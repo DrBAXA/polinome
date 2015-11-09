@@ -11,27 +11,28 @@ public class MainTest {
 
     @Test
     public void isPalindromicTest(){
-        assertEquals(true, isPalindromic(545, 10));
-        assertEquals(true, isPalindromic(585, 2));
-        assertEquals(false, isPalindromic(123, 10));
+
+        assertEquals(true, isPalindromic(585));
+
     }
 
     @Test
     public void getArnTest(){
-        assertEquals(1, getArn(5, 10));
-        assertEquals(3, getArn(5, 2));
-        assertEquals(2, getArn(55, 10));
-        assertEquals(6, getArn(55, 2));
-        assertEquals(5, getArn(69875, 10));
+        assertEquals(1, get10arn(5));
+        assertEquals(3, get10arn(585));
+        assertEquals(3, get2Arn(5));
+        assertEquals(2, get10arn(55));
+        assertEquals(6, get2Arn(55));
+        assertEquals(5, get10arn(69875));
     }
 
     @Test
     public void getDigitTest(){
-        assertEquals(6, getDigit(965659, 2, 10));
-        assertEquals(6, getDigit(965659, 4, 10));
-        assertEquals(9, getDigit(965659, 1, 10));
-        assertEquals(9, getDigit(965659, 6, 10));
-        assertEquals(0, getDigit(16, 4, 2));
+        assertEquals(6, get10Digit(965659, 2));
+        assertEquals(6, get10Digit(965659, 4));
+        assertEquals(9, get10Digit(965659, 1));
+        assertEquals(9, get10Digit(965659, 6));
+        assertEquals(0, get2Digit(16, 4));
     }
 
     @Test
@@ -75,7 +76,7 @@ public class MainTest {
     public void getArnLoadTest(){
         long l = 0;
         for (int i = 0; i < 10000000; i++) {
-            l+= getArn(i, 10);
+            l+= get10arn(i);
         }
     }
 
@@ -83,7 +84,7 @@ public class MainTest {
     public void getDigitLoadTest(){
         long l = 0;
         for (int i = 0; i < 10000000; i++) {
-            l+= getDigit(i, 1, 10);
+            l+= get10Digit(i, 1);
         }
         System.out.println(l);
     }
