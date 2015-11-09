@@ -11,14 +11,28 @@ public class Main {
     }
 
     static int getDigit(long i, int n, int base){
-        int d = getArn(i, base)-n;
-        for (int j = 0; j < d; j++) {
-            i = i/base;
+        if(base == 2){
+            int d = getArn(i, 2)-n;
+            i = i >> d;
+            return (int)(i&1);
         }
+
+        int d = getArn(i, base)-n;
+        i = i/pow(d);
         return (int)(i%base);
     }
 
     static int getArn(long i, int base){
+        if(base == 2) {
+            int n = 1;
+            i >>= 1;
+            while (i > 0){
+                n++;
+                i >>= 1;
+            }
+            return n;
+        }
+
         int n = 1;
         i /= base;
         while (i > 0){
@@ -75,10 +89,6 @@ public class Main {
     }
 
     static long genReflected(long i){
-        long k = 1;
-        for(int j = 0; j < getArn(i, 10); j++){
-            k *= 10;
-        }
         long res = i*pow(getArn(i, 10));
         for(int j = 1; j <= getArn(i, 10); j++){
             res += getDigit(i, j, 10)*pow(j - 1);
@@ -87,11 +97,28 @@ public class Main {
     }
 
     static long pow(int n){
-        long x = 1;
-        for (int i = 0; i < n; i++) {
-            x*= 10;
+        switch (n){
+            case 0: return 1;
+            case 1: return 10;
+            case 2: return 100;
+            case 3: return 1000;
+            case 4: return 10000;
+            case 5: return 100000;
+            case 6: return 1000000;
+            case 7: return 10000000;
+            case 8: return 100000000;
+            case 9: return 1000000000;
+            case 10: return 10000000000L;
+            case 11: return 100000000000L;
+            case 12: return 1000000000000L;
+            case 13: return 10000000000000L;
+            case 14: return 100000000000000L;
+            case 15: return 1000000000000000L;
+            case 16: return 10000000000000000L;
+            case 17: return 100000000000000000L;
+            case 18: return 1000000000000000000L;
+            default:return 0;
         }
-        return x;
     }
 
     static long genReflectedAndCenter(long i, long c){

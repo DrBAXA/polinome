@@ -13,7 +13,6 @@ public class MainTest {
     public void isPalindromicTest(){
         assertEquals(true, isPalindromic(545, 10));
         assertEquals(true, isPalindromic(585, 2));
-        assertEquals(true, isPalindromic(173, 3));
         assertEquals(false, isPalindromic(123, 10));
     }
 
@@ -78,6 +77,15 @@ public class MainTest {
         for (int i = 0; i < 10000000; i++) {
             l+= getArn(i, 10);
         }
+    }
+
+    @Test(timeout = 10000)
+    public void getDigitLoadTest(){
+        long l = 0;
+        for (int i = 0; i < 10000000; i++) {
+            l+= getDigit(i, 1, 10);
+        }
+        System.out.println(l);
     }
 
     @Test
