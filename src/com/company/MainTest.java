@@ -11,9 +11,15 @@ public class MainTest {
 
     @Test
     public void isPalindromicTest(){
-
         assertEquals(true, isPalindromic(585));
-
+        assertEquals(true, isPalindromic(7284717174827L));
+        assertEquals(true, isPalindromic(1413899983141L));
+        assertEquals(true, isPalindromic(32479297423L));
+        assertEquals(true, isPalindromic(939474939));
+        assertEquals(true, isPalindromic(5259525));
+        assertEquals(true, isPalindromic(1934391));
+        assertEquals(true, isPalindromic(1758571));
+        assertEquals(true, isPalindromic(717));
     }
 
     @Test
@@ -37,12 +43,10 @@ public class MainTest {
 
     @Test
     public void genNebPalindromeTest(){
-        assertEquals(5, genNextPalindrome(4));
         assertEquals(33, genNextPalindrome(11));
         assertEquals(121, genNextPalindrome(111));
         assertEquals(1001, genNextPalindrome(999));
         assertEquals(101, genNextPalindrome(99));
-        assertEquals(1, genNextPalindrome(0));
         assertEquals(900009, genNextPalindrome(889988));
         assertEquals(1000001, genNextPalindrome(999999));
     }
@@ -96,5 +100,17 @@ public class MainTest {
             l+= pow(8);
         }
         System.out.println(l);
+    }
+
+    @Test
+    public void get2HalfTest(){
+        assertEquals(4, get2Half(33));
+        assertEquals(6, get2Half(99));
+    }
+
+    @Test
+    public void getInvHalfTest(){
+        assertEquals(4, getInvSecondHalf(33));
+        assertEquals(6, getInvSecondHalf(99));
     }
 }
