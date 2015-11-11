@@ -3,6 +3,10 @@ package com.company;
 public class Main {
     private static int lastLength = 2;
 
+    private static long powLL2 = 10;
+    private static long powLL1 = 10;
+    private static long powLL22 = 10;
+
     static public boolean isPalindromic(long i){
         return (get2Half(i)^getInvSecondHalf(i)) == 0;
     }
@@ -59,6 +63,9 @@ public class Main {
     static long genNextPalindrome(long x){
         if(all9(x)){
             lastLength++;
+            powLL2 = pow(lastLength/2);
+            powLL22 = pow((lastLength/2) + (lastLength%2));
+            powLL1 *= 10;
             return x+2;
         }
         long res;
@@ -69,14 +76,14 @@ public class Main {
         } else {
             nine = where9np(x);
             if(nine<0) {
-                res = x + pow(lastLength/2);
+                res = x + powLL2;
             }else {
                 res = x + 11 * pow(nine);
             }
         }
         if(nine == 0) {
             int d = get10Digit(res, 1);
-            if (d % 2 == 0) return (d + 1) * pow(lastLength - 1) + d + 1;
+            if (d % 2 == 0) return (d + 1) * powLL1 + d + 1;
         }
 
         return res;
@@ -108,8 +115,7 @@ public class Main {
     }
 
     static int getHalf(long i){
-        int n = lastLength;
-        return (int)(i/pow((n/2) + (n%2)));
+        return (int)(i/powLL22);
     }
 
     static long pow(int n){
