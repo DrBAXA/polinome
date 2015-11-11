@@ -97,14 +97,14 @@ public class MainTest {
 
     @Test
     public void get2HalfTest(){
-        assertEquals(4, get2Half(33));
-        assertEquals(6, get2Half(99));
+        assertEquals(4, get2Half(33, 6));
+        assertEquals(6, get2Half(99, 6));
     }
 
     @Test
     public void getInvHalfTest(){
-        assertEquals(4, getInvSecondHalf(33));
-        assertEquals(6, getInvSecondHalf(99));
+        assertEquals(4, getInvSecondHalf(33, 6));
+        assertEquals(6, getInvSecondHalf(99, 6));
     }
 
     @Test

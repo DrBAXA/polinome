@@ -10,17 +10,16 @@ public class Main {
     private static int counter = 0;
 
     static public boolean isPalindromic(long i){
-        return (get2Half(i)^getInvSecondHalf(i)) == 0;
+        int n = get2Arn(i);
+        return (get2Half(i, n)^getInvSecondHalf(i, n)) == 0;
     }
 
-    static public int get2Half(long i){
-        int n = get2Arn(i);
+    static public int get2Half(long i,int n){
         n = (n >> 1) + (n&1);
         return (int)(i >> n);
     }
 
-    static public int getInvSecondHalf(long i){
-        int n = get2Arn(i);
+    static public int getInvSecondHalf(long i, int n){
         n = (n >> 1);
         int res = 0;
         for (int j = 0; j < n; j++) {
