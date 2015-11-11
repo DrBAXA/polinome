@@ -24,12 +24,12 @@ public class MainTest {
 
     @Test
     public void getArnTest(){
-        assertEquals(1, get10arn(5));
-        assertEquals(3, get10arn(585));
+        assertEquals(1, getTenarn(5));
+        assertEquals(3, getTenarn(585));
         assertEquals(3, get2Arn(5));
-        assertEquals(2, get10arn(55));
+        assertEquals(2, getTenarn(55));
         assertEquals(6, get2Arn(55));
-        assertEquals(5, get10arn(69875));
+        assertEquals(5, getTenarn(69875));
     }
 
     @Test
@@ -73,7 +73,7 @@ public class MainTest {
     public void getArnLoadTest(){
         long l = 0;
         for (int i = 11; i < 10000000; i++) {
-            l+= get10arn(i);
+            l+= getTenarn(i);
         }
     }
 

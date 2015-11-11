@@ -1,9 +1,7 @@
 package com.company;
 
 public class Main {
-
-    private static long lastArg = 0;
-    private static int lastRes = 1;
+    private static int lastLength = 2;
 
     static public boolean isPalindromic(long i){
         return (get2Half(i)^getInvSecondHalf(i)) == 0;
@@ -27,7 +25,7 @@ public class Main {
     }
 
     static int get10Digit(long i, int n){
-        int d = get10arn(i)-n;
+        int d = lastLength-n;
         i = i/pow(d);
         return (int)(i%10);
     }
@@ -40,13 +38,6 @@ public class Main {
                 i >>= 1;
             }
             return n;
-    }
-    static int get10arn(long i){
-        if(lastArg != i){
-            lastRes =  getTenarn(i);
-            lastArg = i;
-        }
-        return lastRes;
     }
 
     static int getTenarn(long i){
@@ -66,31 +57,33 @@ public class Main {
     }
 
     static long genNextPalindrome(long x){
-        if(all9(x)) return x+2;
-        int l = get10arn(x);
+        if(all9(x)){
+            lastLength++;
+            return x+2;
+        }
         long res;
         int nine;
-        if(l%2 == 0){
+        if(lastLength%2 == 0){
             nine = where9(x);
             res = x+ 11*pow(nine);
         } else {
             nine = where9np(x);
             if(nine<0) {
-                res = x + pow(l/2);
+                res = x + pow(lastLength/2);
             }else {
                 res = x + 11 * pow(nine);
             }
         }
         if(nine == 0) {
             int d = get10Digit(res, 1);
-            if (d % 2 == 0) return (d + 1) * pow(l - 1) + d + 1;
+            if (d % 2 == 0) return (d + 1) * pow(lastLength - 1) + d + 1;
         }
 
         return res;
     }
 
     static int where9(long x){
-        int d = get10arn(x)/2;
+        int d = lastLength/2;
         int half = getHalf(x);
         while (half%10 == 9){
             d--;
@@ -100,7 +93,7 @@ public class Main {
     }
 
     static int where9np(long x){
-        int d = get10arn(x)/2;
+        int d = lastLength/2;
         int half = getHalf(x);
         if(get10Digit(x, d+1) != 9) return -1;
         while (half%10 == 9){
@@ -111,11 +104,11 @@ public class Main {
     }
 
     static boolean all9(long i){
-        return get10arn(i) != get10arn(i+1);
+        return getTenarn(i) != getTenarn(i+1);
     }
 
     static int getHalf(long i){
-        int n = get10arn(i);
+        int n = lastLength;
         return (int)(i/pow((n/2) + (n%2)));
     }
 
@@ -155,7 +148,7 @@ public class Main {
         long palindrome = 11;
         long n = 5;
         long t1 = System.currentTimeMillis();
-        for(; n < 50; ){
+        for(; n < 60; ){
             palindrome = genNextPalindrome(palindrome);
             if(isPalindromic(palindrome)){
                 System.out.println(++n);
