@@ -43,7 +43,7 @@ public class Main {
     }
     static int get10arn(long i){
         if(lastArg != i){
-            lastRes =  getTenarn(i, 0, 18);
+            lastRes =  getTenarn(i, 2, 18);
             lastArg = i;
         }
         return lastRes;
@@ -149,7 +149,7 @@ public class Main {
         long palindrome = 11;
         long n = 5;
         long t1 = System.currentTimeMillis();
-        for(; n < 61; ){
+        for(; n < 50; ){
             palindrome = genNextPalindrome(palindrome);
             if(isPalindromic(palindrome)){
                 System.out.println(++n);
