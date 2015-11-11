@@ -118,7 +118,7 @@ public class Main {
     }
 
     static boolean all9(long i){
-        return getTenarn(i) != getTenarn(i+1);
+        return lastLength != getTenarn(i+1);
     }
 
     static int getHalf(long i){
