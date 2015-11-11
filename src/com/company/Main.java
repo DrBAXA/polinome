@@ -43,20 +43,26 @@ public class Main {
     }
     static int get10arn(long i){
         if(lastArg != i){
-            lastRes =  getTenarn(i, 2, 18);
+            lastRes =  getTenarn(i);
             lastArg = i;
         }
         return lastRes;
     }
 
-    static int getTenarn(long i, int min, int max){
-        int m = (max+min) >> 1;
-        long d = i/pow(m);
-        if(i == 0) return 1;
-        if(d == 10) return m+2;
-        if(d > 0 && d < 10) return m+1;
-        if(d >= 10) return getTenarn(i, m+1, max);
-        return getTenarn(i, min, m-1);
+    static int getTenarn(long i){
+        if(i < 1000000000){
+            if(i < 100000){
+                return i >= 10000 ? 5 : i >= 1000 ? 4 : i >= 100 ? 3 : i >= 10 ? 2 : 1;
+            }else{
+                return i >= 100000000 ? 9 : i >= 10000000 ? 8 : i >= 1000000 ? 7 : 6;
+            }
+        }else{
+            if(i < 10000000000000L){
+                return i >= 1000000000000L ? 13 : i >= 100000000000L ? 12 : i >= 10000000000L ? 11 : 10;
+            }else {
+                return i >= 10000000000000000L ? 17 : i >= 1000000000000000L ? 16 : i >= 100000000000000L ? 15 : 14;
+            }
+        }
     }
 
     static long genNextPalindrome(long x){

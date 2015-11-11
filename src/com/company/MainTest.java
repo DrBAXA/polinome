@@ -46,15 +46,17 @@ public class MainTest {
         assertEquals(121, genNextPalindrome(111));
         assertEquals(1001, genNextPalindrome(999));
         assertEquals(101, genNextPalindrome(99));
-        assertEquals(900009, genNextPalindrome(889988));
+        assertEquals(300003, genNextPalindrome(199991));
         assertEquals(1000001, genNextPalindrome(999999));
 
-        assertEquals(9000009, genNextPalindrome(8899988));
+        assertEquals(3000003, genNextPalindrome(1999991));
         assertEquals(1111111, genNextPalindrome(1110111));
         assertEquals(1120211, genNextPalindrome(1119111));
         assertEquals(1200021, genNextPalindrome(1199911));
         assertEquals(3000003, genNextPalindrome(1999991));
         assertEquals(10000001, genNextPalindrome(9999999));
+
+        assertEquals(34141388314143L, genNextPalindrome(34141377314143L));
     }
 
     @Test
