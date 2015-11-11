@@ -7,6 +7,8 @@ public class Main {
     private static long powLL1 = 10;
     private static long powLL22 = 10;
 
+    private static int counter = 0;
+
     static public boolean isPalindromic(long i){
         return (get2Half(i)^getInvSecondHalf(i)) == 0;
     }
@@ -63,14 +65,15 @@ public class Main {
     static long genNextPalindrome(long x){
         if(all9(x)){
             lastLength++;
-            powLL2 = pow(lastLength/2);
-            powLL22 = pow((lastLength/2) + (lastLength%2));
+            powLL2 = pow(lastLength >> 1);
+            powLL22 = pow((lastLength >> 1) + (lastLength&1));
             powLL1 *= 10;
+            counter = 0;
             return x+2;
         }
         long res;
         int nine;
-        if(lastLength%2 == 0){
+        if((lastLength&1) == 0){
             nine = where9(x);
             res = x+ 11*pow(nine);
         } else {
@@ -83,14 +86,14 @@ public class Main {
         }
         if(nine == 0) {
             int d = get10Digit(res, 1);
-            if (d % 2 == 0) return (d + 1) * powLL1 + d + 1;
+            if ((d & 1) == 0) return (d + 1) * powLL1 + d + 1;
         }
 
         return res;
     }
 
     static int where9(long x){
-        int d = lastLength/2;
+        int d = lastLength >> 1;
         int half = getHalf(x);
         while (half%10 == 9){
             d--;
@@ -100,9 +103,13 @@ public class Main {
     }
 
     static int where9np(long x){
-        int d = lastLength/2;
+        int d = lastLength >> 1;
         int half = getHalf(x);
-        if(get10Digit(x, d+1) != 9) return -1;
+        if(counter != 9){
+            counter++;
+            return -1;
+        }
+        counter = 0;
         while (half%10 == 9){
             d--;
             half /= 10;
