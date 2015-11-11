@@ -3,7 +3,7 @@ package com.company;
 public class Main {
 
     private static long lastArg = 0;
-    private static int lastRes = 0;
+    private static int lastRes = 1;
 
     static public boolean isPalindromic(long i){
         return (get2Half(i)^getInvSecondHalf(i)) == 0;
@@ -24,12 +24,6 @@ public class Main {
             res = (int)((res << 1) + ((i&c) >> j));
         }
         return res;
-    }
-
-    static int get2Digit(long i, int n){
-            int d = get2Arn(i)-n;
-            i = i >> d;
-            return (int)(i&1);
     }
 
     static int get10Digit(long i, int n){
@@ -69,18 +63,22 @@ public class Main {
         if(all9(x)) return x+2;
         int l = get10arn(x);
         long res;
+        int nine;
         if(l%2 == 0){
-            res = x+ 11*pow(where9(x));
+            nine = where9(x);
+            res = x+ 11*pow(nine);
         } else {
-            int p = where9np(x);
-            if(p<0) {
+            nine = where9np(x);
+            if(nine<0) {
                 res = x + pow(l/2);
             }else {
-                res = x + 11 * pow(p);
+                res = x + 11 * pow(nine);
             }
         }
-        int d = get10Digit(res, 1);
-        if(d%2 == 0) return (d+1)*pow(l-1)+d+1;
+        if(nine == 0) {
+            int d = get10Digit(res, 1);
+            if (d % 2 == 0) return (d + 1) * pow(l - 1) + d + 1;
+        }
 
         return res;
     }
@@ -115,15 +113,6 @@ public class Main {
         return (int)(i/pow((n/2) + (n%2)));
     }
 
-    static long genReflected(long i){
-        int r = get10arn(i);
-        long res = i*pow(r);
-        for(int j = 1; j <= r; j++){
-            res += get10Digit(i, j)*pow(j - 1);
-        }
-        return res;
-    }
-
     static long pow(int n){
         if(n < 10){
             if(n <= 5){
@@ -156,26 +145,16 @@ public class Main {
         }
     }
 
-    static long genReflectedAndCenter(long i, long c){
-        int r = get10arn(i);
-        long p = pow(r);
-        long res = i*p*10 + c*p;
-        for(int j = 1; j <= r; j++){
-            res += get10Digit(i, j)*pow(j - 1);
-        }
-        return res;
-    }
-
     public static void main(String[] args) {
         long palindrome = 11;
         long n = 5;
         long t1 = System.currentTimeMillis();
-        for(; n < 55; ){
+        for(; n < 61; ){
             palindrome = genNextPalindrome(palindrome);
             if(isPalindromic(palindrome)){
                 System.out.println(++n);
-                System.out.println("10x" + palindrome);
-                System.out.println("2x" + Long.toBinaryString(palindrome));
+                System.out.println("10x  " + palindrome);
+                System.out.println("2x   " + Long.toBinaryString(palindrome));
                 System.out.println(-(t1-System.currentTimeMillis()));
                 System.out.println("====================================================================================");
             }

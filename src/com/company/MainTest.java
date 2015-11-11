@@ -38,7 +38,6 @@ public class MainTest {
         assertEquals(6, get10Digit(965659, 4));
         assertEquals(9, get10Digit(965659, 1));
         assertEquals(9, get10Digit(965659, 6));
-        assertEquals(0, get2Digit(16, 4));
     }
 
     @Test
@@ -56,21 +55,6 @@ public class MainTest {
         assertEquals(1200021, genNextPalindrome(1199911));
         assertEquals(3000003, genNextPalindrome(1999991));
         assertEquals(10000001, genNextPalindrome(9999999));
-    }
-
-    @Test
-    public void getReflectedTest(){
-        assertEquals(1111, genReflected(11));
-        assertEquals(123321, genReflected(123));
-        assertEquals(55, genReflected(5));
-        assertEquals(333333, genReflected(333));
-        assertEquals(11, genReflected(1));
-    }
-
-    @Test
-    public void genReflectedAndCenterTest(){
-        assertEquals(12321, genReflectedAndCenter(12, 3));
-        assertEquals(12021, genReflectedAndCenter(12, 0));
     }
 
     @Test
