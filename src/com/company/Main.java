@@ -11,7 +11,7 @@ public class Main {
 
     static public boolean isPalindromic(long i){
         int n = get2Arn(i);
-        return (get2Half(i, n)^getInvSecondHalf(i, n)) == 0;
+        return (get2Half(i, n)^getInvSecondHalf((int)i, n)) == 0;
     }
 
     static public int get2Half(long i,int n){
@@ -19,12 +19,12 @@ public class Main {
         return (int)(i >> n);
     }
 
-    static public int getInvSecondHalf(long i, int n){
+    static public int getInvSecondHalf(int i, int n){
         n = (n >> 1);
         int res = 0;
         for (int j = 0; j < n; j++) {
             int c = 1 << j;
-            res = (int)((res << 1) + ((i&c) >> j));
+            res = (res << 1) + ((i&c) >> j);
         }
         return res;
     }
