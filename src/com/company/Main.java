@@ -58,6 +58,7 @@ public class Main {
     static int getTenarn(long i, int min, int max){
         int m = (max+min) >> 1;
         long d = i/pow(m);
+        if(i == 0) return 1;
         if(d == 10) return m+2;
         if(d > 0 && d < 10) return m+1;
         if(d >= 10) return getTenarn(i, m+1, max);
@@ -65,47 +66,53 @@ public class Main {
     }
 
     static long genNextPalindrome(long x){
-        int d = get10arn(x);
-        if(d%2 == 0) {
-            long lp = getHalf(x)+1;
-            int fd = get10Digit(lp, 1);
-            if(fd%2 == 0){
-                lp = (fd+1)*pow(get10arn(lp)-1);
-            }
-
-            if(get10arn(lp) != get10arn(getHalf(x))){
-                return genReflectedAndCenter(lp / 10, 0);
+        if(all9(x)) return x+2;
+        int l = get10arn(x);
+        long res;
+        if(l%2 == 0){
+            res = x+ 11*pow(where9(x));
+        } else {
+            int p = where9np(x);
+            if(p<0) {
+                res = x + pow(l/2);
             }else {
-                return genReflected(lp);
+                res = x + 11 * pow(p);
             }
         }
-        if(d%2 == 1) {
-            int cd = get10Digit(x, d / 2 + 1);
-            if(cd == 9){
-                long lp = getHalf(x)+1;
-                int fd = get10Digit(lp, 1);
-                if(fd%2 == 0){
-                    lp = (fd+1)*pow(get10arn(lp)-1);
-                }
+        int d = get10Digit(res, 1);
+        if(d%2 == 0) return (d+1)*pow(l-1)+d+1;
 
-                if(get10arn(lp) != get10arn(getHalf(x))){
-                    return genReflected(lp);
-                }else {
-                    return genReflectedAndCenter(lp, 0);
-                }
-            }
-            return genReflectedAndCenter(getHalf(x), cd + 1);
+        return res;
+    }
+
+    static int where9(long x){
+        int d = get10arn(x)/2;
+        int half = getHalf(x);
+        while (half%10 == 9){
+            d--;
+            half /= 10;
         }
-        return 0;
+        return d-1;
+    }
+
+    static int where9np(long x){
+        int d = get10arn(x)/2;
+        int half = getHalf(x);
+        if(get10Digit(x, d+1) != 9) return -1;
+        while (half%10 == 9){
+            d--;
+            half /= 10;
+        }
+        return d-1;
+    }
+
+    static boolean all9(long i){
+        return get10arn(i) != get10arn(i+1);
     }
 
     static int getHalf(long i){
         int n = get10arn(i);
-        int res = 0;
-        for (int j = 1; j <= n/2; j++) {
-            res += get10Digit(i, j)*pow(n/2-j);
-        }
-        return res;
+        return (int)(i/pow((n/2) + (n%2)));
     }
 
     static long genReflected(long i){
@@ -163,7 +170,7 @@ public class Main {
         long palindrome = 11;
         long n = 5;
         long t1 = System.currentTimeMillis();
-        for(; n < 60; ){
+        for(; n < 55; ){
             palindrome = genNextPalindrome(palindrome);
             if(isPalindromic(palindrome)){
                 System.out.println(++n);

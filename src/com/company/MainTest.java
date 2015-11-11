@@ -49,6 +49,13 @@ public class MainTest {
         assertEquals(101, genNextPalindrome(99));
         assertEquals(900009, genNextPalindrome(889988));
         assertEquals(1000001, genNextPalindrome(999999));
+
+        assertEquals(9000009, genNextPalindrome(8899988));
+        assertEquals(1111111, genNextPalindrome(1110111));
+        assertEquals(1120211, genNextPalindrome(1119111));
+        assertEquals(1200021, genNextPalindrome(1199911));
+        assertEquals(3000003, genNextPalindrome(1999991));
+        assertEquals(10000001, genNextPalindrome(9999999));
     }
 
     @Test
@@ -79,7 +86,7 @@ public class MainTest {
     @Test(timeout = 10000)
     public void getArnLoadTest(){
         long l = 0;
-        for (int i = 0; i < 10000000; i++) {
+        for (int i = 11; i < 10000000; i++) {
             l+= get10arn(i);
         }
     }
@@ -87,7 +94,7 @@ public class MainTest {
     @Test(timeout = 10000)
     public void getDigitLoadTest(){
         long l = 0;
-        for (int i = 0; i < 10000000; i++) {
+        for (int i = 11; i < 10000000; i++) {
             l+= get10Digit(i, 1);
         }
         System.out.println(l);
@@ -112,5 +119,32 @@ public class MainTest {
     public void getInvHalfTest(){
         assertEquals(4, getInvSecondHalf(33));
         assertEquals(6, getInvSecondHalf(99));
+    }
+
+    @Test
+    public void getHalfLoadTest(){
+        long l = 0;
+        for (int i = 11; i < 10000000; i++) {
+            l+= getHalf(i);
+        }
+        System.out.println(l);
+    }
+
+    @Test
+    public void where9test(){
+        assertEquals(1, where9(1001));
+        assertEquals(0, where9(1991));
+        assertEquals(2, where9(101101));
+        assertEquals(1, where9(109901));
+        assertEquals(0, where9(199991));
+    }
+
+    @Test
+    public void where9nptest(){
+        assertEquals(-1, where9np(1000001));
+        assertEquals(0, where9np(19991));
+        assertEquals(2, where9np(1019101));
+        assertEquals(1, where9np(1099901));
+        assertEquals(0, where9np(191));
     }
 }
